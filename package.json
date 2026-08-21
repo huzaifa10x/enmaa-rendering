@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && node scripts/legacy-css.mjs --check",
-    "legacy-css": "node scripts/legacy-css.mjs",
     "start": "next start",
     "lint": "eslint",
     "compress": "node compress-images.js",
