@@ -3,20 +3,27 @@
  * scripts/legacy-css.mjs
  *
  * Post-build pass that rewrites the CSS Next.js emitted so it renders in
- * legacy headless engines (technicalseo.com Fetch & Render, old Puppeteer /
- * Chromium builds, screenshot services) WITHOUT downgrading Tailwind v4.
+ * Chromium 79 (the engine used by technicalseo.com Fetch & Render) WITHOUT
+ * downgrading Tailwind v4.
  *
- * What it fixes in Tailwind v4 output:
- *   1. @layer theme/base/components/utilities  -> flattened (Chrome <99 drops
- *      the whole block, which is why the page renders unstyled)
- *   2. oklch() / oklab() / lab() colours       -> hex/rgb, with the modern
- *      value kept behind @supports (incl. inside custom properties)
- *   3. @property-registered --tw-* variables   -> Tailwind's own fallback
- *      block is un-gated so non-Safari legacy engines get the initial values
- *   4. CSS nesting, media-range syntax, prefixes -> transpiled by Lightning CSS
+ * Transforms applied, in order:
+ *   1. :where() -> :is() -> expanded into plain selector lists   (Chrome <88)
+ *   2. @layer flattened with specificity padding                 (Chrome <99)
+ *   3. Tailwind's @property fallback un-gated so Chromium gets
+ *      the --tw-* initial values                                 (Chrome <85)
+ *   4. --tw-scale-*: N%  ->  decimal, so scaleX()/scaleY() parse  (Chrome <104)
+ *   5. translate/rotate/scale independent properties get a
+ *      composed `transform` fallback                             (Chrome <104)
+ *   6. flex `gap` gets margin-based fallbacks                     (Chrome <84)
+ *   7. aspect-ratio gets a padding-bottom fallback                (Chrome <88)
+ *   8. Lightning CSS pass at targets: chrome 79
  *
- * color-mix() needs no work: Tailwind already emits a hex fallback and guards
- * the modern value with @supports (color: color-mix(in lab, red, red)).
+ * Every fallback in 5-7 is wrapped in an @supports guard that is FALSE on
+ * modern engines, so current browsers are byte-for-byte unaffected.
+ *
+ * oklch()/color-mix() need no work here: Turbopack's own Lightning CSS pass
+ * already resolves oklch, and Tailwind emits hex fallbacks for color-mix
+ * behind @supports (color: color-mix(in lab, red, red)).
  *
  * Usage:  node scripts/legacy-css.mjs [--check] [dir ...]
  *   --check  exit 1 if any modern syntax survives (use in CI)
@@ -26,44 +33,31 @@ import fs from 'node:fs';
 import path from 'node:path';
 import postcss from 'postcss';
 import cascadeLayers from '@csstools/postcss-cascade-layers';
+import isPseudoClass from '@csstools/postcss-is-pseudo-class';
 import { transform, browserslistToTargets, Features } from 'lightningcss';
 import browserslist from 'browserslist';
 
-/** Oldest engines we want the production CSS to render in. */
-const BROWSERS = [
-  'chrome >= 55',
-  'edge >= 79',
-  'firefox >= 60',
-  'safari >= 11',
-  'ios_saf >= 11',
-];
-
+/** The Fetch & Render tool pins Chromium 79. That is the floor. */
+const BROWSERS = ['chrome >= 79'];
 const TARGETS = browserslistToTargets(browserslist(BROWSERS));
 
-/**
- * 'cascade' (default) = @csstools/postcss-cascade-layers, which reproduces real
- *   layer precedence with :not(#\#) specificity padding. Byte-for-byte correct,
- *   ~25% larger, slightly ugly selectors.
- * 'strip'   = just unwrap the @layer blocks and rely on source order (which
- *   Tailwind already emits in layer order). Smaller and cleaner, but unlayered
- *   CSS in globals.css no longer automatically beats a higher-specificity
- *   utility. Switch to this only if output size matters more than exactness.
- */
-const LAYER_STRATEGY = 'cascade';
-
-/** Skip the display-p3 / lab() duplicate fallbacks - sRGB hex is enough here. */
+/** Skip display-p3 / lab() duplicate fallbacks - sRGB hex is enough. */
 const EXCLUDE = Features.P3Colors | Features.LabColors | Features.ColorFunction;
 
-/** Unwrap @layer blocks, keeping source order. */
-const stripLayers = () => ({
-  postcssPlugin: 'strip-cascade-layers',
-  AtRule: {
-    layer: (rule) => {
-      if (rule.nodes) rule.replaceWith(rule.nodes);
-      else rule.remove();
-    },
-  },
-});
+/**
+ * Feature queries used to gate the legacy fallbacks. Each is FALSE on engines
+ * that already support the real feature, so modern rendering is untouched.
+ *
+ *   inset      -> Chrome 87, Safari 14.1, Firefox 66
+ *   flex gap   -> Chrome 84, Safari 14.1, Firefox 63
+ * Safari lines up exactly; Chrome 84-86 and Firefox 63-65 get both gap and the
+ * margin fallback (slightly wide spacing). Those are 2020 builds, ~0% traffic.
+ */
+const GUARD_GAP = 'not (inset: 0)';
+/** translate as an independent property -> Chrome 104, Safari 14.1, Firefox 72 */
+const GUARD_TRANSFORM = 'not (translate: 0px)';
+/** aspect-ratio -> Chrome 88, Safari 15, Firefox 89 */
+const GUARD_ASPECT = 'not (aspect-ratio: 1 / 1)';
 
 const DEFAULT_DIRS = [
   '.next/static/css',
@@ -73,53 +67,169 @@ const DEFAULT_DIRS = [
   'dist/_next/static/css',
 ];
 
+/** :where() has no legacy equivalent; :is() at least expands. */
+const whereToIs = () => ({
+  postcssPlugin: 'where-to-is',
+  Rule(rule) {
+    if (rule.selector.includes(':where(')) {
+      rule.selector = rule.selector.replaceAll(':where(', ':is(');
+    }
+  },
+});
+
 /**
- * Tailwind wraps its @property fallback in an @supports test that only matches
- * Safari < 16.4 and Firefox. Legacy Chromium fails that test and therefore
- * never gets the --tw-* initial values (shadows, transforms, rings break).
- * Unwrap it so every engine gets the defaults, exactly like Tailwind v3 did.
+ * Tailwind wraps its @property fallback in an @supports test matching only
+ * Safari <16.4 and Firefox. Legacy Chromium fails it and gets no --tw-*
+ * defaults, so shadows/transforms/rings break. Un-gate it, as v3 did.
  */
 const unwrapPropertyFallback = () => ({
   postcssPlugin: 'unwrap-tailwind-property-fallback',
   AtRule: {
     supports: (rule) => {
       const p = rule.params;
-      const isTailwindPropertyGuard =
-        p.includes('-moz-orient') &&
-        (p.includes('margin-trim') || p.includes('-webkit-hyphens'));
-      if (!isTailwindPropertyGuard) return;
-      rule.replaceWith(rule.nodes);
+      if (p.includes('-moz-orient') && (p.includes('margin-trim') || p.includes('-webkit-hyphens'))) {
+        rule.replaceWith(rule.nodes);
+      }
     },
   },
 });
 
+/**
+ * Tailwind v4 sets --tw-scale-x: 105%. `scale: 105%` is valid; `scaleX(105%)`
+ * is not, in Chromium 79. Percentages and decimals are equivalent for both, so
+ * normalise to decimals and both paths parse.
+ */
+const decimalScale = () => ({
+  postcssPlugin: 'decimal-scale-vars',
+  Declaration(decl) {
+    if (!/^--tw-(scale|enter-scale|exit-scale)/.test(decl.prop)) return;
+    const m = decl.value.trim().match(/^(-?[\d.]+)%$/);
+    if (m) decl.value = String(Number(m[1]) / 100);
+  },
+});
+
+const supportsWrap = (rule, params, cssText) => {
+  const at = postcss.parse(`@supports ${params}{${cssText}}`).first;
+  rule.after(at);
+};
+
+/** Compose translate/rotate/scale into a single `transform`. */
+const TRANSFORM_FALLBACK =
+  'transform:translate(var(--tw-translate-x,0),var(--tw-translate-y,0))' +
+  ' rotate(var(--tw-rotate-z,0deg))' +
+  ' scaleX(var(--tw-scale-x,1)) scaleY(var(--tw-scale-y,1))';
+
+const transformFallback = () => ({
+  postcssPlugin: 'legacy-transform-fallback',
+  OnceExit(root) {
+    root.walkRules((rule) => {
+      let touched = false;
+      let literalRotate = null;
+      rule.each((decl) => {
+        if (decl.type !== 'decl') return;
+        if (decl.prop === 'translate' || decl.prop === 'scale') touched = true;
+        if (decl.prop === 'rotate') {
+          touched = true;
+          if (!decl.value.includes('var(')) literalRotate = decl.value;
+        }
+      });
+      if (!touched) return;
+      const body =
+        `${rule.selector}{` +
+        (literalRotate ? `--tw-rotate-z:${literalRotate};` : '') +
+        TRANSFORM_FALLBACK +
+        '}';
+      supportsWrap(rule, GUARD_TRANSFORM, body);
+    });
+  },
+});
+
+/** Margin-based stand-in for flex gap. Grid gap already works in Chromium 79. */
+const gapFallback = () => ({
+  postcssPlugin: 'legacy-flex-gap-fallback',
+  OnceExit(root) {
+    root.walkRules((rule) => {
+      let row = null;
+      let col = null;
+      rule.each((decl) => {
+        if (decl.type !== 'decl') return;
+        if (decl.prop === 'gap') {
+          const parts = decl.value.trim().split(/\s+(?![^(]*\))/);
+          row = parts[0];
+          col = parts[1] || parts[0];
+        } else if (decl.prop === 'row-gap') row = decl.value;
+        else if (decl.prop === 'column-gap') col = decl.value;
+      });
+      if (row === null && col === null) return;
+      const sel = rule.selector;
+      const c = col ?? row;
+      const r = row ?? col;
+      const body =
+        `${sel}.flex>*+*{margin-inline-start:${c}}` +
+        `${sel}.flex.flex-col>*+*{margin-inline-start:0;margin-top:${r}}` +
+        `${sel}.flex.flex-wrap>*{margin-bottom:${r}}`;
+      supportsWrap(rule, GUARD_GAP, body);
+    });
+  },
+});
+
+/**
+ * padding-bottom stand-in for aspect-ratio. Scoped to `.relative` because every
+ * aspect-* usage in this codebase is a relative box holding an absolutely
+ * positioned <Image fill>; applying it to sized elements (avatar, radio) would
+ * collapse them.
+ */
+const aspectFallback = () => ({
+  postcssPlugin: 'legacy-aspect-ratio-fallback',
+  OnceExit(root) {
+    root.walkRules((rule) => {
+      rule.each((decl) => {
+        if (decl.type !== 'decl' || decl.prop !== 'aspect-ratio') return;
+        const m = decl.value.trim().match(/^([\d.]+)\s*(?:\/\s*([\d.]+))?$/);
+        if (!m) return;
+        const w = Number(m[1]);
+        const h = m[2] ? Number(m[2]) : 1;
+        if (!w || !h) return;
+        const pct = ((h / w) * 100).toFixed(4).replace(/\.?0+$/, '');
+        const body = `${rule.selector}.relative{height:0;padding-bottom:${pct}%}`;
+        supportsWrap(rule, GUARD_ASPECT, body);
+      });
+    });
+  },
+});
+
 function scan(css) {
-  const layers = (css.match(/@layer[^;{]*\{/g) || []).length;
-  const okl = (css.match(/okl(ch|ab)\(/g) || []).length;
-  const rel = (css.match(/\(\s*from\s/g) || []).length;
-  // color-mix outside an @supports guard would be fatal; count total vs guarded
-  const mix = (css.match(/color-mix\(/g) || []).length;
-  const guards = (css.match(/@supports \(color: ?color-mix\(/g) || []).length;
-  const prop = (css.match(/@property/g) || []).length;
-  return { layers, okl, rel, mix, guards, prop, bytes: css.length };
+  const c = (re) => (css.match(re) || []).length;
+  return {
+    layers: c(/@layer[^;{]*\{/g),
+    okl: c(/okl(ch|ab)\(/g),
+    is: c(/:is\(/g),
+    where: c(/:where\(/g),
+    indep: c(/[;{](translate|rotate|scale):/g),
+    bytes: css.length,
+  };
 }
 
 async function processFile(file, check) {
   const before = fs.readFileSync(file, 'utf8');
-  if (!/@layer|okl(ch|ab)\(|color-mix\(|@property/.test(before)) return null;
 
-  const layerPlugin =
-    LAYER_STRATEGY === 'strip'
-      ? stripLayers()
-      : cascadeLayers({
-          onRevertLayerKeyword: 'warn',
-          onConditionalRulesChangingLayerOrder: 'warn',
-        });
+  if (before.includes('scaleX(var(--tw-scale-x')) {
+    console.log(`\n  ${path.relative(process.cwd(), file)}\n    already processed - skipping`);
+    return null;
+  }
 
-  const flattened = await postcss([layerPlugin, unwrapPropertyFallback()]).process(before, {
-    from: file,
-    to: file,
-  });
+  if (!/@layer|okl(ch|ab)\(|:is\(|:where\(|gap:|aspect-ratio|@property/.test(before)) return null;
+
+  const flattened = await postcss([
+    whereToIs(),
+    isPseudoClass({ onComplexSelector: 'warning' }),
+    cascadeLayers({ onRevertLayerKeyword: 'warn', onConditionalRulesChangingLayerOrder: 'warn' }),
+    unwrapPropertyFallback(),
+    decimalScale(),
+    transformFallback(),
+    gapFallback(),
+    aspectFallback(),
+  ]).process(before, { from: file, to: file });
 
   const { code } = transform({
     filename: path.basename(file),
@@ -128,7 +238,6 @@ async function processFile(file, check) {
     exclude: EXCLUDE,
     minify: true,
     errorRecovery: true,
-    drafts: { customMedia: false },
   });
 
   const after = code.toString();
@@ -138,14 +247,14 @@ async function processFile(file, check) {
   const a = scan(after);
   console.log(
     `\n  ${path.relative(process.cwd(), file)}\n` +
-      `    @layer blocks : ${b.layers} -> ${a.layers}\n` +
-      `    oklch/oklab   : ${b.okl} -> ${a.okl}\n` +
-      `    color-mix()   : ${b.mix} (guarded by ${b.guards} @supports) -> ${a.mix} (${a.guards})\n` +
-      `    @property     : ${b.prop} -> ${a.prop} (initial values now un-gated)\n` +
-      `    size          : ${(b.bytes / 1024).toFixed(1)}kB -> ${(a.bytes / 1024).toFixed(1)}kB`
+    `    @layer blocks    : ${b.layers} -> ${a.layers}\n` +
+    `    oklch/oklab      : ${b.okl} -> ${a.okl}\n` +
+    `    :is() / :where() : ${b.is} / ${b.where} -> ${a.is} / ${a.where}\n` +
+    `    translate/scale  : ${b.indep} -> ${a.indep} (transform fallback added)\n` +
+    `    size             : ${(b.bytes / 1024).toFixed(1)}kB -> ${(a.bytes / 1024).toFixed(1)}kB`
   );
 
-  if (check && (a.layers > 0 || a.okl > 0 || a.rel > 0)) {
+  if (check && (a.layers || a.okl || a.is || a.where)) {
     console.error(`    FAIL: modern syntax survived in ${file}`);
     return false;
   }
@@ -180,8 +289,7 @@ async function main() {
 
   let ok = true;
   for (const file of files) {
-    const result = await processFile(file, check);
-    if (result === false) ok = false;
+    if ((await processFile(file, check)) === false) ok = false;
   }
 
   console.log(ok ? '\nlegacy-css: done.' : '\nlegacy-css: FAILED.');

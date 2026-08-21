@@ -47,6 +47,7 @@
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@csstools/postcss-cascade-layers": "^6.0.0",
+    "@csstools/postcss-is-pseudo-class": "^6.0.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "babel-loader": "^10.1.1",
