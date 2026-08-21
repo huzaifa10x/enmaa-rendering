@@ -25,7 +25,7 @@ import GIS from "@/public/images/Services-images/GIS-Services/65.webp";
 
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import ServicesSliderMobile from "./ServicesSliderMobile"
-import useGsapPin from "./hooks/useGsapPin"
+// import useGsapPin from "./hooks/useGsapPin"
 
 // const services = [
 //     {
@@ -448,7 +448,7 @@ export default function ServicesSection({ lang = "en" }) {
     }
     const sliderRef = useRef(null)
     const sectionRef = useRef(null)
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
 
     return (
         <>

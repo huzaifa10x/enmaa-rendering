@@ -7,9 +7,9 @@ import { MapPin, Building2, Globe, Briefcase } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Link from "next/link"
-import useGsapPin from "./hooks/useGsapPin"
+// import useGsapPin from "./hooks/useGsapPin"
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 const locations = [
     {
@@ -61,7 +61,7 @@ export default function LocationsSection() {
     const sectionRef = useRef(null)
     const [selectedLocation, setSelectedLocation] = useState("Sharjah")
 
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
 
 
     // const boxRef = useRef(null);

@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils";
 import image1 from "@/public/images/projects/1855-02.webp";
 import image2 from "@/public/images/p43ews.webp";
 import image3 from "@/public/images/projecs slideshow/431.webp";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { gsap } from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PillTitle from "@/app/components/pill-title";
-import useGsapPin from "@/app/components/hooks/useGsapPin";
+// import useGsapPin from "@/app/components/hooks/useGsapPin";
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 const designSolutions = [
     {
@@ -46,7 +46,7 @@ const designSolutions = [
 export default function DesignSolutions() {
     const [hoveredId, setHoveredId] = useState(1);
     const sectionRef = useRef(null);
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
 
     return (
         <section ref={sectionRef} className="bg-neutral-200 relative px-0 lg:h-screen no-scrollbar md:rounded-t-[50px] text-white py-16 !z-[80]">

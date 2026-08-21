@@ -1,69 +1,69 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+// import { gsap } from "gsap"
+// import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Image from "next/image"
 import buildingProp from "@/public/images/building-prop.webp"
 import buildingProp2 from "@/public/images/building-prop2.webp"
 import PillTitle from "./pill-title"
-import useGsapPin from "./hooks/useGsapPin"
+// import useGsapPin from "./hooks/useGsapPin"
 import useCounterAnimation from "./useCounterAnimation"
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 export default function WelcomeSection() {
-    const sectionRef = useRef(null)
-    const countersRef = useRef([])
-    useGsapPin(sectionRef)
+    // const sectionRef = useRef(null)
+    // const countersRef = useRef([])
+    // useGsapPin(sectionRef)
 
-    useEffect(() => {
-        const section = sectionRef.current
-        countersRef.current.forEach((el) => {
-            const targetValue = parseInt(el.dataset.value, 10)
-            const animateCounter = () => {
-                gsap.fromTo(
-                    el,
-                    { innerText: 0 },
-                    {
-                        innerText: targetValue,
-                        duration: 10,
-                        snap: { innerText: 1 },
-                        ease: "power4.out",
-                        onUpdate: function () {
-                            el.innerText = Math.floor(el.innerText)
-                        },
-                    }
-                )
-            }
+    // useEffect(() => {
+    //     const section = sectionRef.current
+    //     countersRef.current.forEach((el) => {
+    //         const targetValue = parseInt(el.dataset.value, 10)
+    //         const animateCounter = () => {
+    //             gsap.fromTo(
+    //                 el,
+    //                 { innerText: 0 },
+    //                 {
+    //                     innerText: targetValue,
+    //                     duration: 10,
+    //                     snap: { innerText: 1 },
+    //                     ease: "power4.out",
+    //                     onUpdate: function () {
+    //                         el.innerText = Math.floor(el.innerText)
+    //                     },
+    //                 }
+    //             )
+    //         }
 
-            ScrollTrigger.create({
-                trigger: section,
-                start: "top 70%",
-                onEnter: animateCounter,
-                onEnterBack: animateCounter,
-                onLeave: () => (el.innerText = 0),
-                onLeaveBack: () => (el.innerText = 0),
-            })
-        })
-        return () => {
-            ScrollTrigger.getAll().forEach((t) => t.kill())
-        }
-    }, [])
-    const counterV1Ref = useRef(null);
-    const counterV2Ref = useRef(null);
-    const counterV3Ref = useRef(null);
+    //         ScrollTrigger.create({
+    //             trigger: section,
+    //             start: "top 70%",
+    //             onEnter: animateCounter,
+    //             onEnterBack: animateCounter,
+    //             onLeave: () => (el.innerText = 0),
+    //             onLeaveBack: () => (el.innerText = 0),
+    //         })
+    //     })
+    //     return () => {
+    //         ScrollTrigger.getAll().forEach((t) => t.kill())
+    //     }
+    // }, [])
+    // const counterV1Ref = useRef(null);
+    // const counterV2Ref = useRef(null);
+    // const counterV3Ref = useRef(null);
 
-    useCounterAnimation(counterV1Ref, 400);
-    useCounterAnimation(counterV2Ref, 900);
-    useCounterAnimation(counterV3Ref, 900);
+    // useCounterAnimation(counterV1Ref, 400);
+    // useCounterAnimation(counterV2Ref, 900);
+    // useCounterAnimation(counterV3Ref, 900);
 
-    const counterStyle = {
-        WebkitTextStroke: "2px #565656",
-        fontFamily: "system-ui",
-    };
+    // const counterStyle = {
+    //     WebkitTextStroke: "2px #565656",
+    //     fontFamily: "system-ui",
+    // };
 
     return (
-        <section ref={sectionRef} className="bg-gray-50 relative z-10 md:p-y-0 py-10 md:rounded-t-[50px] overflow-hidden">
+        <section className="bg-gray-50 relative z-10 md:p-y-0 py-10 md:rounded-t-[50px] overflow-hidden">
             <div className="">
                 <Image
                     src={buildingProp}

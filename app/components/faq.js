@@ -5,15 +5,15 @@ import Image from "next/image"
 import { Plus, Minus } from "lucide-react"
 import faqImg from "@/public/images/inspiration/28.webp"
 import PillTitle from "./pill-title"
-import useGsapPin from "./hooks/useGsapPin"
+// import useGsapPin from "./hooks/useGsapPin"
 
 export default function FAQ({ faqData }) {
     const [openItem, setOpenItem] = useState(0)
     const toggleItem = (id) => {
         setOpenItem(prev => prev === id ? null : id)
     }
-    const sectionRef = useRef(null)
-    useGsapPin(sectionRef)
+    // const sectionRef = useRef(null)
+    // useGsapPin(sectionRef)
 
     return (
         <section className="bg-white md:rounded-t-[50px] py-20 relative !z-[80]">

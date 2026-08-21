@@ -13,9 +13,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import gsap from "gsap"
 import Link from "next/link"
 import PillTitle from "./pill-title"
-import useGsapPin from "./hooks/useGsapPin"
+// import useGsapPin from "./hooks/useGsapPin"
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 const items = [
     // {
@@ -103,24 +103,24 @@ export default function OurProjects() {
 
     const sectionRef = useRef(null)
 
-    useGsapPin(sectionRef, {
-        onEnter: () => {
-            gsap.to(sectionRef.current, {
-                borderTopLeftRadius: 0,
-                borderTopRightRadius: 0,
-                duration: 0.3,
-                ease: "power2.out"
-            })
-        },
-        onLeaveBack: () => {
-            gsap.to(sectionRef.current, {
-                borderTopLeftRadius: 50,
-                borderTopRightRadius: 50,
-                duration: 0.3,
-                ease: "power2.out"
-            })
-        }
-    })
+    // useGsapPin(sectionRef, {
+    //     onEnter: () => {
+    //         gsap.to(sectionRef.current, {
+    //             borderTopLeftRadius: 0,
+    //             borderTopRightRadius: 0,
+    //             duration: 0.3,
+    //             ease: "power2.out"
+    //         })
+    //     },
+    //     onLeaveBack: () => {
+    //         gsap.to(sectionRef.current, {
+    //             borderTopLeftRadius: 50,
+    //             borderTopRightRadius: 50,
+    //             duration: 0.3,
+    //             ease: "power2.out"
+    //         })
+    //     }
+    // })
     const [index, setIndex] = useState(0)
 
     // Auto rotate

@@ -10,11 +10,11 @@ import bg from "@/public/images/bg-prop422.webp"
 import male from "@/public/images/male-placeholder.webp"
 import female from "@/public/images/female-placeholder.webp"
 import quot from "@/public/images/quots.webp"
-import { gsap } from "gsap"
+// import { gsap } from "gsap"
 import Image from "next/image"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+// import { ScrollTrigger } from "gsap/ScrollTrigger"
 import PillTitle from "./pill-title"
-import useGsapPin from "./hooks/useGsapPin"
+// import useGsapPin from "./hooks/useGsapPin"
 
 const testimonials = [
     // 🔹 Previous Reviews (UNCHANGED)
@@ -95,7 +95,7 @@ const testimonials = [
 ];
 
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 function TestimonialSlider() {
 
@@ -111,7 +111,7 @@ function TestimonialSlider() {
     }
     const currentTestimonial = testimonials[currentIndex]
     const sectionRef = useRef(null)
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
 
     return (
         <section className="bg-stone-100 px-6 h-screen relative flex flex-col justify-center md:rounded-t-[50px] !z-[90]">

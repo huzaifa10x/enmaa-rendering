@@ -9,7 +9,7 @@ import image4 from "@/public/images/Enmaa.webp"
 import Image from "next/image"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import PillTitle from "./pill-title"
-import useGsapPin from "./hooks/useGsapPin"
+// import useGsapPin from "./hooks/useGsapPin"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -93,7 +93,7 @@ function StepRow({ step, reverseOnDesktop }) {
 export default function OurProcess() {
     const sectionRef = useRef(null)
 
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
 
     // const boxRef = useRef(null);
     // useEffect(() => {
