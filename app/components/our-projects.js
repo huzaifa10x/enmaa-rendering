@@ -193,9 +193,7 @@ export default function OurProjects() {
                                         alt={`Slide ${item.id}`}
                                         // width={500}
                                         // height={481}
-                                        // fill
-                                                    width={300}
-                                                    height={300}
+                                   fill
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="w-full h-full object-cover brightness-75 "
                                     />

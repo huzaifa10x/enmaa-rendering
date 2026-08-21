@@ -165,9 +165,7 @@ export default function ServicesSection() {
                     <Image
                         src={activeImg}
                         alt="Background"
-                        // fill
-                                                    width={300}
-                                                    height={300}
+                       fill
                         className="object-cover transition-opacity duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-0"></div>

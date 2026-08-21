@@ -139,9 +139,7 @@ export default function DiscoverSlider() {
                         <Image
                             src={slide.background}
                             alt={slide.title}
-                            // fill
-                                                    width={300}
-                                                    height={300}
+                          fill
                             priority={index === 0}
                             loading={index === 0 ? "eager" : "lazy"}
                             sizes="100vw"
@@ -163,9 +161,7 @@ export default function DiscoverSlider() {
                         <Image
                             src={slide.mobBg}
                             alt={slide.title}
-                            // fill
-                                                    width={300}
-                                                    height={300}
+                           fill
                             priority={index === 0}
                             loading={index === 0 ? "eager" : "lazy"}
                             sizes="100vw"
