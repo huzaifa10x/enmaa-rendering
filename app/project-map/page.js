@@ -51,8 +51,8 @@ export default function page() {
 
                     {/* Header */}
                     <div className="text-center relative">
-                        <Image
-                            src={projects}
+                        <img
+                            src={projects.src}
                             width={600}
                             height={100}
                             alt="projects"

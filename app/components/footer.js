@@ -74,8 +74,8 @@ export default function Footer() {
                 </button>
             </Link>
 
-            <Image
-                src={bg}
+            <img
+                src={bg.src}
                 height={300}
                 width={300}
                 alt="image"
@@ -161,16 +161,16 @@ export default function Footer() {
                         {/* Email Signup */}
                         <div className="space-y-4 flex md:justify-end justify-center">
                             {isArabic ?
-                                <Image
-                                    src={footerLogoarabic}
+                                <img
+                                    src={footerLogoarabic.src}
                                     height={320}
                                     width={220}
                                     alt="image"
                                     className=""
                                 />
                                 :
-                                <Image
-                                    src={footerLogoengish}
+                                <img
+                                    src={footerLogoengish.src}
                                     height={320}
                                     width={320}
                                     alt="image"
@@ -196,8 +196,8 @@ export default function Footer() {
                         {/* Email Signup */}
                         {isArabic ?
                             <div className="space-y-4 flex md:justify-end justify-center">
-                                <Image
-                                    src={footerLogoarabic}
+                                <img
+                                    src={footerLogoarabic.src}
                                     height={320}
                                     width={220}
                                     alt="image"
@@ -206,8 +206,8 @@ export default function Footer() {
                             </div>
                             :
                             <div className="space-y-4 flex md:justify-end justify-center">
-                                <Image
-                                    src={footerLogoengish}
+                                <img
+                                    src={footerLogoengish.src}
                                     height={320}
                                     width={320}
                                     alt="image"

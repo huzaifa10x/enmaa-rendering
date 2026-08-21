@@ -143,8 +143,8 @@ export default function Testimonial() {
                                 </Card>
                                 <div className="flex items-center gap-4 mt-6">
                                     <div className="w-16 overflow-hidden h-16 rounded-full bg-gray-300">
-                                        <Image
-                                            src={content.image || "/placeholder.svg"}
+                                        <img
+                                            src={content.image.src || "/placeholder.svg"}
                                             alt={content.author}
                                         />
                                     </div>

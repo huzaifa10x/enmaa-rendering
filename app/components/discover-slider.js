@@ -136,8 +136,8 @@ export default function DiscoverSlider() {
                         className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0 pointer-events-none'
                             }`}
                     >
-                        <Image
-                            src={slide.background}
+                        <img
+                            src={slide.background.src}
                             alt={slide.title}
                           fill
                             priority={index === 0}
@@ -158,8 +158,8 @@ export default function DiscoverSlider() {
                         className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0 pointer-events-none'
                             }`}
                     >
-                        <Image
-                            src={slide.mobBg}
+                        <img
+                            src={slide.mobBg.src}
                             alt={slide.title}
                            fill
                             priority={index === 0}

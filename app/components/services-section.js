@@ -455,8 +455,8 @@ export default function ServicesSection({ lang = "en" }) {
             <section className="lg:block hidden relative z-40 md:rounded-t-[50px] overflow-y-hidden h-screen" ref={sectionRef}>
                 <section ref={sliderRef} className="relative md:flex hidden flex-col items-center justify-center bg-gradient-to-r from-[#01b2eb] to-primary  overflow-hidden">
                     {/* background image */}
-                    <Image
-                        src={activeImg}
+                    <img
+                        src={activeImg.src}
                         alt="Background"
                       fill
                         className="object-cover transition-opacity duration-500"

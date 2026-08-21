@@ -70,8 +70,8 @@ export default function FAQ({ faqData }) {
                         dir="rtl"
                     >
                         <div className="relative w-full lg:max-w-[380px] lg:max-h-[400px] md:max-w-[800px] md:max-h-[300px] aspect-[4/5] rounded-2xl overflow-hidden mb-8 shadow-md">
-                            <Image
-                                src={faqImg}
+                            <img
+                                src={faqImg.src}
                                 alt="صورة الأسئلة الشائعة"
                                fill
                                 className="object-cover transition-transform duration-500 hover:scale-105"

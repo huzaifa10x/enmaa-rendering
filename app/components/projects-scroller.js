@@ -31,8 +31,8 @@ function Row({ items = [], reverse = false, duration = "35s" }) {
             >
                 {items.map((src, i) => (
                     <Card key={`row-a-${i}`} className="h-72 w-[420px] py-0 overflow-hidden rounded-xl border-0 bg-card shadow-sm">
-                        <Image
-                            src={src}
+                        <img
+                            src={src.src}
                             alt={`Project render ${i}`}
                             className="h-full w-full object-cover"
                             loading="lazy"
@@ -47,7 +47,7 @@ function Row({ items = [], reverse = false, duration = "35s" }) {
                         className="h-72 w-[420px] py-0 overflow-hidden rounded-xl border-0 bg-card shadow-sm"
                         aria-hidden="true"
                     >
-                        <Image src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+                        <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
                     </Card>
                 ))}
             </div>

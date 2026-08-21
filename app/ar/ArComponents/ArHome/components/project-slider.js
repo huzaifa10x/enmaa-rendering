@@ -190,8 +190,8 @@ export default function ProjectSlider() {
                                         isActive ? "scale-105 z-10 shadow-xl" : "scale-[0.96] opacity-90",
                                     ].join(" ")}
                                 >
-                                    <Image
-                                        src={p.image || "/placeholder.svg"}
+                                    <img
+                                        src={p.image.src || "/placeholder.svg"}
                                         alt={p.title}
                                         width={300}
                                         height={300}

@@ -23,8 +23,7 @@ export default function GalleryPage() {
                                 setOpen(true);
                             }}
                         >
-                            {console.log(img.image)}
-                            <Image
+                            <img
                                 src={img.image}
                                 height={300}
                                 width={300}

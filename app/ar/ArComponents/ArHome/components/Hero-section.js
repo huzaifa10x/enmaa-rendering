@@ -7,8 +7,8 @@ export default function HeroSection({ title, desc, bg }) {
         <>
             <Navbar />
             <section className='relative h-100'>
-                <Image
-                    src={bg}
+                <img
+                    src={bg.src}
                     width={800}
                     height={200}
                     priority

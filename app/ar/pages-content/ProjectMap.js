@@ -20,8 +20,8 @@ export default function ProjectMap() {
 
                     {/* Header */}
                     <div className="text-center relative">
-                        <Image
-                            src={projects}
+                        <img
+                            src={projects.src}
                             width={500}
                             height={100}
                             alt="projects"

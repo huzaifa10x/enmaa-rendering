@@ -23,7 +23,7 @@ export default function Supervision() {
             {/* <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="h-64 md:h-80 rounded-xl overflow-hidden">
-                        <Image
+                        <img
                             src={image1}
                             height={200}
                             width={200}
@@ -32,7 +32,7 @@ export default function Supervision() {
                         />
                     </div>
                     <div className="h-64 md:h-80 rounded-xl overflow-hidden">
-                        <Image
+                        <img
                             src={image1}
                             height={200}
                             width={200}

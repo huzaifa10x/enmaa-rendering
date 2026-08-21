@@ -474,16 +474,16 @@ export default function ServiceSection({ lang = "en" }) {
         {/* Header */}
         <div className="text-center relative mb-10">
           {isArabic ?
-            <Image
-              src={arabicservicesText}
+            <img
+              src={arabicservicesText.src}
               width={700}
               height={300}
               alt="services"
               className="mx-auto"
             />
             :
-            <Image
-              src={engservicesText}
+            <img
+              src={engservicesText.src}
               width={700}
               height={300}
               alt="services"

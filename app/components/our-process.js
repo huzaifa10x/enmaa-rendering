@@ -68,8 +68,8 @@ function StepRow({ step, reverseOnDesktop }) {
                 {/* Image */}
                 <div className={`relative flex justify-center ${reverseOnDesktop ? "md:w-1/2" : ""}`}>
                     <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg border border-border">
-                        <Image
-                            src={step.image}
+                        <img
+                            src={step.image.src}
                             alt={step.title}
                             className="h-full w-full object-cover"
                         />
@@ -146,8 +146,8 @@ export default function OurProcess() {
                     <StepRow step={STEPS[3]} reverseOnDesktop />
                 </div>
 
-                <Image
-                    src={image4}
+                <img
+                    src={image4.src}
                     width={600}
                     alt={image4}
                     height={200}

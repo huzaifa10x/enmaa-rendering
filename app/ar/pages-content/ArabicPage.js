@@ -15,8 +15,8 @@ export default function ArabicPage() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="h-64 md:h-80 rounded-xl overflow-hidden">
-                        <Image
-                            src={image1}
+                        <img
+                            src={image1.src}
                             height={200}
                             width={200}
                             alt=''
@@ -24,8 +24,8 @@ export default function ArabicPage() {
                         />
                     </div>
                     <div className="h-64 md:h-80 rounded-xl overflow-hidden">
-                        <Image
-                            src={image1}
+                        <img
+                            src={image1.src}
                             height={200}
                             width={200}
                             alt=''

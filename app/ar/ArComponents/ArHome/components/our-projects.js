@@ -227,7 +227,7 @@ export default function OurProjects() {
         //         </div>
         //     </div>
 
-        //     <Image
+        //     <img
         //         src={bgProp}
         //         width={300}
         //         height={300}
@@ -245,7 +245,7 @@ export default function OurProjects() {
         //                     )}`}
         //                 >
         //                     <div className="relative w-full h-full">
-        //                         <Image
+        //                         <img
         //                             src={item.src}
         //                             alt={`Slide ${item.id}`}
         //                             width={500}
@@ -301,8 +301,8 @@ export default function OurProjects() {
                 </div>
             </div>
 
-            <Image
-                src={bgProp}
+            <img
+                src={bgProp.src}
                 width={300}
                 height={300}
                 alt=""
@@ -320,7 +320,7 @@ export default function OurProjects() {
                         >
                             <div className="relative">
                                 <div className="relative w-full h-[300px]">
-                                    <Image
+                                    <img
                                         src={item.src}
                                         alt={`Slide ${item.id}`}
                                         // width={500}

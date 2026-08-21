@@ -54,9 +54,9 @@ export default function Navbar() {
                 {/* Logo */}
                 <Link href={isArabic ? "/ar" : "/"}>
                     {isArabic ?
-                        <Image src={Logoarabic} height={180} width={130} alt="Logo" />
+                        <img src={Logoarabic.src} height={180} width={130} alt="Logo" />
                         :
-                        <Image src={Logoengish} height={180} width={190} alt="Logo" />
+                        <img src={Logoengish.src} height={180} width={190} alt="Logo" />
                     }
                 </Link>
 
@@ -118,9 +118,9 @@ export default function Navbar() {
                 } h-full w-64 bg-black/95 p-6 border-white/10 duration-300 ${openSidebar ? "translate-x-0" : isArabic ? "translate-x-full " : "-translate-x-full"}`}>
                 <div className="flex justify-between items-center mb-8">
                     {isArabic ?
-                        <Image src={Logoarabic} width={130} height={130} alt="Logo" />
+                        <img src={Logoarabic.src} width={130} height={130} alt="Logo" />
                         :
-                        <Image src={Logoengish} width={150} height={150} alt="Logo" />
+                        <img src={Logoengish.src} width={150} height={150} alt="Logo" />
 
                     }
                     <Button variant="ghost" onClick={() => setOpenSidebar(false)}

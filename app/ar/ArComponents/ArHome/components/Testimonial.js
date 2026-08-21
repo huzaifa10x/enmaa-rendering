@@ -66,8 +66,8 @@ export default function Testimonial() {
 
                                     <p className="font-semibold text-lg">{content.author}</p>
                                     <div className="w-10 overflow-hidden h-10 rounded-full bg-gray-300">
-                                        <Image
-                                            src={content.image || "/placeholder.svg"}
+                                        <img
+                                            src={content.image.src || "/placeholder.svg"}
                                             alt={content.author}
                                         />
                                     </div>

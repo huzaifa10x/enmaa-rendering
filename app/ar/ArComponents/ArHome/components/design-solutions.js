@@ -99,8 +99,8 @@ export default function DesignSolutions() {
                                     >
                                         <div className="flex flex-col md:flex-row gap-6 items-start">
                                             <div className="relative w-full md:w-80 h-48 rounded-lg overflow-hidden flex-shrink-0">
-                                                <Image
-                                                    src={solution.image || "/placeholder.svg"}
+                                                <img
+                                                    src={solution.image.src || "/placeholder.svg"}
                                                     alt={solution.title}
                                                     fill
                                                     className="object-cover"

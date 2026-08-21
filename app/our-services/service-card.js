@@ -6,8 +6,8 @@ export default function ServiceCard({ service  , isArabic}) {
     // if (service.featured) {
     return (
         <Card className="relative overflow-hidden group rounded-2xl h-full min-h-80 md:min-h-full p-0 bg-neutral-100 border border-black/40">
-            <Image
-                src={service.image || "/placeholder.svg"}
+            <img
+                src={service.image.src || "/placeholder.svg"}
                 alt={service.title}
              fill
                 className="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-100 duration-300"

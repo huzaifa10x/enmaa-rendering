@@ -6,7 +6,7 @@ import { Play } from "lucide-react"
 export default function ProjectCard({ project, onClick, isArabic }) {
     return (
         <div onClick={onClick} className="group relative overflow-hidden rounded-lg cursor-pointer h-64 md:h-72">
-            <Image
+            <img
                 src={`https://yellow-termite-327315.hostingersite.com/storage/app/public/projects/${project.images[0]?.filename}`}
                 alt={project.name}
                fill

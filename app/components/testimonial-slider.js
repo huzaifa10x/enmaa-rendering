@@ -115,8 +115,8 @@ function TestimonialSlider() {
 
     return (
         <section className="bg-stone-100 px-6 h-screen relative flex flex-col justify-center md:rounded-t-[50px] !z-[90]">
-            <Image
-                src={bg}
+            <img
+                src={bg.src}
                 width={200}
                 height={200}
                 alt=""
@@ -135,8 +135,8 @@ function TestimonialSlider() {
                 <div className="w-full max-w-4xl mx-auto px-4 md:py-12 py-5 relative z-10">
                     {/* Quote Icon */}
                     <div className="flex justify-center">
-                        <Image
-                            src={quot}
+                        <img
+                            src={quot.src}
                             width={100}
                             height={100}
                             alt=""
@@ -177,8 +177,8 @@ function TestimonialSlider() {
                                 className={`relative transition-all duration-300 ${index === currentIndex ? "scale-100" : "scale-75"}`}
                                 aria-label={`Go to ${testimonial.author}'s testimonial`}
                             >
-                                <Image
-                                    src={testimonial.image || "/placeholder.svg"}
+                                <img
+                                    src={testimonial.image.src || "/placeholder.svg"}
                                     alt={testimonial.author}
                                     className={`md:h-12  w-8 md:w-12 rounded-full object-cover border-2 transition-all duration-300 ${index === currentIndex ? "blur-none opacity-100 border-orange-400" : "blur-[2px] border-0 opacity-100"
                                         }`}

@@ -74,8 +74,8 @@ export default function FAQ({ faqData }) {
 
                     <div className="flex flex-col items-center text-center lg:text-left">
                         <div className="relative w-full max-w-[380px] aspect-[4/5] rounded-2xl overflow-hidden mb-6">
-                            <Image
-                                src={faqImg}
+                            <img
+                                src={faqImg.src}
                                 alt="FAQ side image"
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                              fill

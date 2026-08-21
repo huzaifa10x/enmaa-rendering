@@ -169,8 +169,8 @@ export default function OurProjects() {
                     <h2 className="text-4xl md:text-5xl mb-4 text-balance">Creative <span className="text-primary font-bold">projects that define</span> our style</h2>
                 </div>
             </div>
-            <Image
-                src={bgProp}
+            <img
+                src={bgProp.src}
                 width={300}
                 height={300}
                 alt=""
@@ -188,7 +188,7 @@ export default function OurProjects() {
                         >
                             <div className="relative">
                                 <div className="relative w-full h-75">
-                                    <Image
+                                    <img
                                         src={item.src}
                                         alt={`Slide ${item.id}`}
                                         // width={500}

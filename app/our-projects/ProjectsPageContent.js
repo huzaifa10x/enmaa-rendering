@@ -41,16 +41,16 @@ export default function ProjectsPageContent({ PROJECTS, LOCATIONS, TYPES, isArab
                 <div className="max-w-7xl mx-auto px-4 py-16 ">
                     <div className="text-center relative">
                         {isArabic ?
-                            <Image
-                                src={projectsarabic}
+                            <img
+                                src={projectsarabic.src}
                                 width={500}
                                 height={300}
                                 alt="services"
                                 className="mx-auto"
                             />
                             :
-                            <Image
-                                src={projects}
+                            <img
+                                src={projects.src}
                                 width={600}
                                 height={100}
                                 alt="projects"

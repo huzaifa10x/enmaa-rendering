@@ -47,7 +47,7 @@ export default function ProjectModal({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-0 h-full">
                     <div className="relative bg-black md:min-h-96 min-h-52">
                         <div className="group">
-                            <Image
+                            <img
                                 src={
                                     `https://yellow-termite-327315.hostingersite.com/storage/app/public/projects/${project?.images[currentImageIndex]?.filename}` ||
                                     "/placeholder.svg"
@@ -77,7 +77,7 @@ export default function ProjectModal({
                                 </button>
 
                                 <div className="relative w-full max-w-5xl h-[80vh]">
-                                    <Image
+                                    <img
                                         src={`https://yellow-termite-327315.hostingersite.com/storage/app/public/projects/${project?.images[currentImageIndex]?.filename}`}
                                         alt="Zoomed image"
                                      fill

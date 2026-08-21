@@ -69,16 +69,16 @@ export default function WelcomeSection() {
     return (
         <section ref={sectionRef} className="bg-gray-50 relative z-10 md:p-y-0 py-10 p md:-mt-7 md:rounded-t-[50px] overflow-hidden">
             <div className="">
-                <Image
-                    src={buildingProp}
+                <img
+                    src={buildingProp.src}
                     width={800}
                     height={200}
                     alt=""
                     className="absolute right-0 bottom-0 "
                 />
 
-                <Image
-                    src={buildingProp2}
+                <img
+                    src={buildingProp2.src}
                     width={500}
                     height={200}
                     alt=""
