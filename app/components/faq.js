@@ -78,7 +78,10 @@ export default function FAQ({ faqData }) {
                                 src={faqImg}
                                 alt="FAQ side image"
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                fill className="object-cover"
+                                // fill
+                                                    width={300}
+                                                    height={300} 
+                                className="object-cover"
                             />
                         </div>
                         <div>

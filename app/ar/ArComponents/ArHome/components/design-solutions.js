@@ -102,7 +102,9 @@ export default function DesignSolutions() {
                                                 <Image
                                                     src={solution.image || "/placeholder.svg"}
                                                     alt={solution.title}
-                                                    fill
+                                                    // fill
+                                                    width={300}
+                                                    height={300}
                                                     className="object-cover"
                                                 />
                                             </div>

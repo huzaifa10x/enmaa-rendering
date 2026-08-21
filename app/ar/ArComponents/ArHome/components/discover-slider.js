@@ -109,7 +109,9 @@ export default function DiscoverSlider() {
                         <Image
                             src={slide.background}
                             alt={slide.title}
-                            fill
+                            // fill
+                                                    width={300}
+                                                    height={300}
                             priority={index === 0} // Perfect: keeps LCP fast
                             sizes="100vw"
                             className="object-cover object-center"
@@ -130,7 +132,9 @@ export default function DiscoverSlider() {
                         <Image
                             src={slide.mobBg}
                             alt={slide.title}
-                            fill
+                            // fill
+                                                    width={300}
+                                                    height={300}
                             priority={index === 0}
                             loading={index === 0 ? "eager" : "lazy"}
                             sizes="(max-width: 768px) 100vw, 50vw"

@@ -53,7 +53,9 @@ export default function ProjectModalAr({
                                     "/placeholder.svg"
                                 }
                                 alt={`${project.name_ar} - Image ${currentImageIndex + 1}`}
-                                fill
+                                // fill
+                                                    width={300}
+                                                    height={300}
                                 className="object-cover"
                             />
                             <Expand
@@ -80,7 +82,9 @@ export default function ProjectModalAr({
                                     <Image
                                         src={`https://yellow-termite-327315.hostingersite.com/storage/app/public/projects/${project?.images[currentImageIndex]?.filename}`}
                                         alt="Zoomed image"
-                                        fill
+                                        // fill
+                                                    width={300}
+                                                    height={300}
                                         className="object-contain"
                                     />
                                 </div>
