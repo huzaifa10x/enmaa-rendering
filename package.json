@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/legacy-css.mjs --check",
+    "legacy-css": "node scripts/legacy-css.mjs",
     "start": "next start",
     "lint": "eslint",
     "compress": "node compress-images.js",
@@ -45,11 +46,15 @@
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
+    "@csstools/postcss-cascade-layers": "^6.0.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "babel-loader": "^10.1.1",
+    "browserslist": "^4.28.8",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
+    "lightningcss": "^1.33.0",
+    "postcss": "^8.5.26",
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.8"
