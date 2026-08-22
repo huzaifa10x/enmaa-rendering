@@ -158,10 +158,8 @@ export default function DiscoverSlider() {
                         <img
                             src={slide.mobBg.src}
                             alt={slide.title}
-                            fill
                             priority={index === 0}
                             loading={index === 0 ? "eager" : "lazy"}
-                            sizes="100vw"
                             className="object-cover object-center"
                         />
                     </div>

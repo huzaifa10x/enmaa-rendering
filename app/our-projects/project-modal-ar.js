@@ -79,7 +79,6 @@ export default function ProjectModalAr({
                                     <img
                                         src={`https://yellow-termite-327315.hostingersite.com/storage/app/public/projects/${project?.images[currentImageIndex]?.filename}`}
                                         alt="Zoomed image"
-                                    fill
                                         className="object-contain"
                                     />
                                 </div>
