@@ -129,3 +129,14 @@ p[ref="subtitleRef"] {
 .svg-hover {
   color: black;
 }
+
+@media (min-height: 2000px) {
+    .h-screen,
+    .lg\:h-screen {
+        height: 1000px;
+    }
+
+    .min-h-screen {
+        min-height: 1000px;
+    }
+}
