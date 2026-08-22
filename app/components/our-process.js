@@ -1,17 +1,17 @@
 "use client"
 import { useEffect, useRef } from "react"
-import { gsap } from "gsap"
+// import { gsap } from "gsap"
 import image1 from "@/public/images/14.webp"
 import image2 from "@/public/images/2972.webp"
 import image3 from "@/public/images/3322.webp"
 import image5 from "@/public/images/432.webp"
 import image4 from "@/public/images/Enmaa.webp"
 import Image from "next/image"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+// import { ScrollTrigger } from "gsap/ScrollTrigger"
 import PillTitle from "./pill-title"
 // import useGsapPin from "./hooks/useGsapPin"
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 const STEPS = [
     {
@@ -148,10 +148,9 @@ export default function OurProcess() {
 
                 <img
                     src={image4.src}
-                    width={600}
                     alt={image4}
-                    height={200}
-                    className="mt-16 w-auto h-auto"
+                    width={600}
+                    className="mt-16"
                 />
             </div>
         </div>

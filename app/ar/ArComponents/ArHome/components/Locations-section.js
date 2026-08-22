@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Building2, Globe, Briefcase } from "lucide-react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+// import gsap from "gsap"
+// import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Link from "next/link"
-import useGsapPin from "@/app/components/hooks/useGsapPin"
+// import useGsapPin from "@/app/components/hooks/useGsapPin"
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 const locations = [
     {
@@ -61,13 +61,13 @@ export default function LocationsSection() {
     const sectionRef = useRef(null)
     const [selectedLocation, setSelectedLocation] = useState("Sharjah")
 
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
     const selectedLocationData = locations.find(
         (loc) => loc.id === selectedLocation
     )
 
     return (
-        <section ref={sectionRef} dir="rtl" className="py-20 lg:h-screen bg-white md:rounded-t-[50px] !z-[70]">
+        <section dir="rtl" className="py-20 lg:h-screen bg-white md:rounded-t-[50px] !z-[70]">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="grid lg:grid-cols-2 gap-8 mx-auto">
                     {/* Left Section - Location Tabs */}

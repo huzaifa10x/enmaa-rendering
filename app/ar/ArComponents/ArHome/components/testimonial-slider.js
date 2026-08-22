@@ -10,11 +10,11 @@ import bg from "@/public/images/bg-prop422.webp"
 import male from "@/public/images/male-placeholder.webp"
 import female from "@/public/images/female-placeholder.webp"
 import quot from "@/public/images/quots.webp"
-import { gsap } from "gsap"
+// import { gsap } from "gsap"
 import Image from "next/image"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+// import { ScrollTrigger } from "gsap/ScrollTrigger"
 import PillTitle from "@/app/components/pill-title"
-import useGsapPin from "@/app/components/hooks/useGsapPin"
+// import useGsapPin from "@/app/components/hooks/useGsapPin"
 
 const testimonials = [
     {
@@ -92,7 +92,7 @@ const testimonials = [
 ];
 
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 function TestimonialSlider() {
 
@@ -110,34 +110,34 @@ function TestimonialSlider() {
     const sectionRef = useRef(null)
 
 
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
 
 
     const boxRef = useRef(null);
-    useEffect(() => {
-        const el = boxRef.current;
+    // useEffect(() => {
+    //     const el = boxRef.current;
 
-        gsap.to(el, {
-            y: "-100%",
-            // rotation: 360,
-            duration: 5,
-            scrollTrigger: {
-                trigger: el,
-                pin: true,
-                start: "top center",
-                end: "bottom top",
-                scrub: true,
-                pinSpacing: false,
-            },
-        });
+    //     gsap.to(el, {
+    //         y: "-100%",
+    //         // rotation: 360,
+    //         duration: 5,
+    //         scrollTrigger: {
+    //             trigger: el,
+    //             pin: true,
+    //             start: "top center",
+    //             end: "bottom top",
+    //             scrub: true,
+    //             pinSpacing: false,
+    //         },
+    //     });
 
-        return () => {
-            ScrollTrigger.getAll().forEach((t) => t.kill());
-        };
-    }, []);
+    //     return () => {
+    //         ScrollTrigger.getAll().forEach((t) => t.kill());
+    //     };
+    // }, []);
 
     return (
-        <section ref={sectionRef} className="bg-stone-100 px-6 h-screen relative flex flex-col justify-center md:rounded-t-[50px] !z-[90]">
+        <section className="bg-stone-100 px-6 h-screen relative flex flex-col justify-center md:rounded-t-[50px] !z-[90]">
             <img
                 src={bg.src}
                 width={200}

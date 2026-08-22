@@ -15,8 +15,8 @@ import image10 from "@/public/images/projecs slideshow/428.webp"
 import image11 from "@/public/images/projecs slideshow/431.webp"
 import Image from "next/image"
 import { useRef } from "react"
-import gsap from "gsap"
-import useGsapPin from "@/app/components/hooks/useGsapPin"
+// import gsap from "gsap"
+// import useGsapPin from "@/app/components/hooks/useGsapPin"
 
 const imagesTop = [image2, image3, image4, image5, image7, image8]
 const imagesBottom = [image3, image6, image2, image9, image10, image11]
@@ -57,11 +57,9 @@ function Row({ items = [], reverse = false, duration = "35s" }) {
 
 export default function ProjectsScroller() {
     const sectionRef = useRef(null)
-    useGsapPin(sectionRef)
-
-
+    // useGsapPin(sectionRef)
     return (
-        <section ref={sectionRef} className="bg-white relative !z-[99] h-screen flex flex-col justify-center py-10 md:rounded-t-[50px]">
+        <section className="bg-white relative !z-[99] h-screen flex flex-col justify-center py-10 md:rounded-t-[50px]">
             <div aria-label="Project gallery" className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4">
                 {/* <header className="flex items-end justify-between">
                     <PillTitle title={'Selected Projects'} />

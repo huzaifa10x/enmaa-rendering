@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useRef } from "react"
-import { gsap } from "gsap"
+// import { gsap } from "gsap"
 import image1 from "@/public/images/14.webp"
 import image2 from "@/public/images/2972.webp"
 import image3 from "@/public/images/3322.webp"
@@ -9,9 +9,9 @@ import imagearabic from "@/public/images/image17.webp"
 import Image from "next/image"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import PillTitle from "@/app/components/pill-title"
-import useGsapPin from "@/app/components/hooks/useGsapPin"
+// import useGsapPin from "@/app/components/hooks/useGsapPin"
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 const STEPS = [
     {
@@ -90,7 +90,7 @@ function StepRow({ step, reverseOnDesktop }) {
 
 export default function OurProcess() {
     const sectionRef = useRef(null)
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
 
     return (
        <div className="relative w-full rounded-t-[50px] z-50 bg-gray-100">

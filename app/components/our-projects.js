@@ -1,36 +1,16 @@
 "use client"
-import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
+import { useState } from "react"
 import image418 from "@/public/images/418.webp"
 import image590 from "@/public/images/590.webp"
 import image1717 from "@/public/images/1717.webp"
 import image416 from "@/public/images/416.webp"
 import image1703 from "@/public/images/image1703.webp"
 import bgProp from "@/public/images/bg-prop.webp"
-import imagePlaceholder from "@/public/images/image-placeholder.webp"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import gsap from "gsap"
 import Link from "next/link"
 import PillTitle from "./pill-title"
-// import useGsapPin from "./hooks/useGsapPin"
-
-// gsap.registerPlugin(ScrollTrigger)
 
 const items = [
-    // {
-    //     id: 2,
-    //     type: "image",
-    //     src: imagePlaceholder,
-    //     title: "PROPOSED SHEDS <br/> & LABOR ACCOMMODATION",
-    //     description: `
-    // <div>
-    //     <div>SHARJAH - SAJA'A / INDUSTRIAL</div>
-    //     <div>LAND AREA 63513.50 M2</div>
-    //     <div>PROPOSED SHEDS (G+M) <br/> LABOR ACCOMMODATIONS (G+1) + C.W.</div>
-    //     <div>Built Up Area 1490.00 M2</div>
-    // </div>`
-    // },
     {
         id: 3,
         type: "image",
@@ -99,48 +79,12 @@ const items = [
 ]
 
 export default function OurProjects() {
-    const [currentSlide, setCurrentSlide] = useState(0)
-
-    const sectionRef = useRef(null)
-
-    // useGsapPin(sectionRef, {
-    //     onEnter: () => {
-    //         gsap.to(sectionRef.current, {
-    //             borderTopLeftRadius: 0,
-    //             borderTopRightRadius: 0,
-    //             duration: 0.3,
-    //             ease: "power2.out"
-    //         })
-    //     },
-    //     onLeaveBack: () => {
-    //         gsap.to(sectionRef.current, {
-    //             borderTopLeftRadius: 50,
-    //             borderTopRightRadius: 50,
-    //             duration: 0.3,
-    //             ease: "power2.out"
-    //         })
-    //     }
-    // })
+    // One source of truth: the old code kept `index` and `currentSlide` in sync
+    // by hand and the prev() handler could go negative.
     const [index, setIndex] = useState(0)
 
-    // Auto rotate
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => next(), 3000)
-    //     return () => clearInterval(interval)
-    // }, [index])
-
-    const next = () => {
-        const next = (currentSlide + 1) % items.length
-        setIndex((prev) => (prev + 1) % items.length)
-        setCurrentSlide(next)
-    }
-
-    const prev = () => {
-        const prev = currentSlide === 0 ? items.length - 1 : currentSlide - 1
-        setIndex((prev) => (prev - 1) % items.length)
-        setCurrentSlide(prev)
-    }
+    const next = () => setIndex((prev) => (prev + 1) % items.length)
+    const prev = () => setIndex((prev) => (prev - 1 + items.length) % items.length)
 
     const getPositionClass = (i) => {
         const diff = (i - index + items.length) % items.length
@@ -157,48 +101,55 @@ export default function OurProjects() {
             case items.length - 2: // far left
                 return "z-10 lg:scale-0 md:scale-40 scale-0 opacity-80 brightness-50 -translate-x-[6rem] md:-translate-x-[20rem] lg:-translate-x-[48rem]"
             default:
-                return "opacity-0 lg:scale-50 md:scale-30"
+                return "opacity-0 lg:scale-50 md:scale-30 pointer-events-none"
         }
     }
 
     return (
-        <section ref={sectionRef} className="relative w-full flex flex-col py-10 overflow-hidden items-center justify-center rounded-t-[50px] z-60! bg-neutral-200 -mt-10">
-            <div className="flex flex-wrap md:justify-between w-full max-w-7xl items-start lg:gap-0 gap-4 px-6">
-                <PillTitle title={'OUR PROJECTS'} />
-                <div className="md:mb-16 max-w-125">
-                    <h2 className="text-4xl md:text-5xl mb-4 text-balance">Creative <span className="text-primary font-bold">projects that define</span> our style</h2>
-                </div>
-            </div>
+        <section className="relative w-full flex flex-col py-10 overflow-hidden items-center justify-center rounded-t-[50px] z-[60] bg-neutral-200 -mt-10">
+            {/* Decorative watermark. It MUST be behind everything and ignore
+                pointer events, or it covers the heading and the buttons. */}
             <img
                 src={bgProp.src}
-                width={300}
-                height={300}
                 alt=""
-                className="absolute w-auto h-auto"
+                aria-hidden="true"
+                className="pointer-events-none select-none absolute inset-0 -z-10 h-full w-full object-cover opacity-40"
             />
+
+            <div className="relative z-10 flex flex-wrap md:justify-between w-full max-w-7xl items-start lg:gap-0 gap-4 px-6">
+                <PillTitle title={'OUR PROJECTS'} />
+                <div className="md:mb-16 max-w-125">
+                    <h2 className="text-4xl md:text-5xl mb-4 text-balance">
+                        Creative <span className="text-primary font-bold">projects that define</span> our style
+                    </h2>
+                </div>
+            </div>
+
             {/* Carousel container */}
-            <div className="relative w-[40em] md:h-[25em] h-[15em] flex items-center justify-center">
+            <div className="relative z-10 w-full max-w-[40em] md:h-[25em] h-[15em] flex items-center justify-center">
                 <ul className="relative w-full h-full flex items-center justify-center">
                     {items.map((item, i) => (
                         <li
                             key={item.id}
-                            className={`absolute transition-all duration-500 ease-in-out w-[500px] h-[281px] bg-gray-800  transform ${getPositionClass(
-                                i
-                            )}`}
+                            className={`absolute transition-all duration-500 ease-in-out w-[500px] max-w-[90vw] h-[281px] rounded-lg overflow-hidden bg-gray-800 transform ${getPositionClass(i)}`}
                         >
-                            <div className="relative">
-                                <div className="relative w-full h-75">
-                                    <img
-                                        src={item.src.src}
-                                        alt={`Slide ${item.id}`}
-                                        className="absolute inset-0 h-full w-full object-cover object-center brightness-75"
-                                    />
-                                </div>
-                                {/* Overlay Text */}
-                                <div className="inset-0 flex items-center justify-between py-2">
-                                    <div className="font-bold text-black mb-1" dangerouslySetInnerHTML={{ __html: item.title }} />
-                                    <div className="text-black text-xs  opacity-90" dangerouslySetInnerHTML={{ __html: item.description }} />
-                                </div>
+                            <img
+                                src={item.src.src}
+                                alt={item.title.replace(/<[^>]*>/g, " ")}
+                                loading="lazy"
+                                className="absolute inset-0 h-full w-full object-cover object-center"
+                            />
+
+                            {/* Caption sits ON the card, not below it. */}
+                            <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/90 via-black/70 to-transparent px-4 pb-3 pt-10 text-white">
+                                <div
+                                    className="text-sm font-bold leading-tight mb-1"
+                                    dangerouslySetInnerHTML={{ __html: item.title }}
+                                />
+                                <div
+                                    className="text-[10px] leading-snug opacity-90 [&_div]:leading-snug"
+                                    dangerouslySetInnerHTML={{ __html: item.description }}
+                                />
                             </div>
                         </li>
                     ))}
@@ -206,23 +157,29 @@ export default function OurProjects() {
             </div>
 
             {/* Buttons */}
-            <div className="relative z-10 flex flex-wrap items-center md:justify-between justify-center md:mt-38 gap-9 w-full max-w-7xl">
-                {/* <div></div>
-                <div></div> */}
-
+            <div className="relative z-20 flex flex-wrap items-center md:justify-between justify-center md:mt-38 gap-9 w-full max-w-7xl px-6">
                 <div className="flex items-center gap-4 lg-mt-0 mt-5">
                     <button
+                        type="button"
                         onClick={prev}
-                        className="text-black lg:px-6 lg:py-2 px-3 border border-neutral-400 rounded-full hover:bg-neutral-400 transition"
+                        aria-label="Previous project"
+                        className="text-black lg:px-6 lg:py-2 px-3 border border-neutral-400 rounded-full hover:bg-neutral-400 transition cursor-pointer"
                     >
                         <ArrowLeft className="lg:w-10 w-3" />
                     </button>
-                    <Link href={'our-projects'} className="bg-neutral-800 text-xs text-white text-nowrap lg:px-6 px-3 border border-neutral-400 py-1 lg:py-2 rounded-full hover:bg-black transition" >
+
+                    <Link
+                        href="/our-projects/"
+                        className="bg-neutral-800 text-xs text-white text-nowrap lg:px-6 px-3 border border-neutral-400 py-1 lg:py-2 rounded-full hover:bg-black transition"
+                    >
                         Explore All
                     </Link>
+
                     <button
+                        type="button"
                         onClick={next}
-                        className="text-black lg:px-6 lg:py-2 px-3 border border-neutral-400 rounded-full hover:bg-neutral-400 transition"
+                        aria-label="Next project"
+                        className="text-black lg:px-6 lg:py-2 px-3 border border-neutral-400 rounded-full hover:bg-neutral-400 transition cursor-pointer"
                     >
                         <ArrowRight className="lg:w-10 w-3" />
                     </button>
@@ -232,12 +189,12 @@ export default function OurProjects() {
                 <div className="max-w-6xl flex items-center justify-end">
                     <div className="flex items-center space-x-4 text-black text-4xl">
                         <div className="w-50 h-1 bg-white relative">
-                            <div className="absolute left-0 top-0 h-full bg-black transition-all duration-500 ease-out"
-                                style={{ width: `${((currentSlide + 1) / items.length) * 100}%` }}
+                            <div
+                                className="absolute left-0 top-0 h-full bg-black transition-all duration-500 ease-out"
+                                style={{ width: `${((index + 1) / items.length) * 100}%` }}
                             />
                         </div>
-                        <span>{String(currentSlide + 1).padStart(2, "0")}</span>
-                        {/* <span>{String(items.length).padStart(2, "0")}</span> */}
+                        <span>{String(index + 1).padStart(2, "0")}</span>
                     </div>
                 </div>
             </div>

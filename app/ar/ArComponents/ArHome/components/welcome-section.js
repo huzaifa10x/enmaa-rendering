@@ -1,58 +1,58 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+// import { gsap } from "gsap"
+// import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Image from "next/image"
 import buildingProp from "@/public/images/building-prop.webp"
 import buildingProp2 from "@/public/images/building-prop2.webp"
 import PillTitle from "@/app/components/pill-title"
 import useCounterAnimation from "@/app/components/useCounterAnimation"
-import useGsapPin from "@/app/components/hooks/useGsapPin"
+// import useGsapPin from "@/app/components/hooks/useGsapPin"
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 export default function WelcomeSection() {
     const sectionRef = useRef(null)
     const countersRef = useRef([])
-    useGsapPin(sectionRef)
-    useEffect(() => {
-        const section = sectionRef.current
-        countersRef.current.forEach((el) => {
-            const targetValue = parseInt(el.dataset.value, 10)
+    // useGsapPin(sectionRef)
+    // useEffect(() => {
+    //     const section = sectionRef.current
+    //     countersRef.current.forEach((el) => {
+    //         const targetValue = parseInt(el.dataset.value, 10)
 
-            const animateCounter = () => {
-                gsap.fromTo(
-                    el,
-                    { innerText: 0 },
-                    {
-                        innerText: targetValue,
-                        duration: 5,
-                        snap: { innerText: 1 },
-                        ease: "power4.out",
-                        onUpdate: function () {
-                            el.innerText = Math.floor(el.innerText)
-                        },
-                    }
-                )
-            }
+    //         const animateCounter = () => {
+    //             gsap.fromTo(
+    //                 el,
+    //                 { innerText: 0 },
+    //                 {
+    //                     innerText: targetValue,
+    //                     duration: 5,
+    //                     snap: { innerText: 1 },
+    //                     ease: "power4.out",
+    //                     onUpdate: function () {
+    //                         el.innerText = Math.floor(el.innerText)
+    //                     },
+    //                 }
+    //             )
+    //         }
 
-            // ScrollTrigger
-            ScrollTrigger.create({
-                trigger: section,
-                start: "top 70%",
-                onEnter: animateCounter,
-                onEnterBack: animateCounter,
-                onLeave: () => (el.innerText = 0),
-                onLeaveBack: () => (el.innerText = 0),
-            })
-        })
+    //         // ScrollTrigger
+    //         ScrollTrigger.create({
+    //             trigger: section,
+    //             start: "top 70%",
+    //             onEnter: animateCounter,
+    //             onEnterBack: animateCounter,
+    //             onLeave: () => (el.innerText = 0),
+    //             onLeaveBack: () => (el.innerText = 0),
+    //         })
+    //     })
 
 
-        return () => {
-            ScrollTrigger.getAll().forEach((t) => t.kill())
-        }
-    }, [])
+    //     return () => {
+    //         ScrollTrigger.getAll().forEach((t) => t.kill())
+    //     }
+    // }, [])
 
     const counterV1Ref = useRef(null);
     const counterV2Ref = useRef(null);
@@ -67,7 +67,7 @@ export default function WelcomeSection() {
     };
 
     return (
-        <section ref={sectionRef} className="bg-gray-50 relative z-10 md:p-y-0 py-10 p md:-mt-7 md:rounded-t-[50px] overflow-hidden">
+        <section className="bg-gray-50 relative z-10 md:p-y-0 py-10 p md:-mt-7 md:rounded-t-[50px] overflow-hidden">
             <div className="">
                 <img
                     src={buildingProp.src}

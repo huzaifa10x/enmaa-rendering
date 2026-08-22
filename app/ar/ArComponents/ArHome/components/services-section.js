@@ -13,11 +13,11 @@ import image5 from "@/public/images/home-services/7.webp"
 import image6 from "@/public/images/home-services/558.webp"
 import image7 from "@/public/images/home-services/8145.webp"
 import image8 from "@/public/images/home-services/ae.webp"
-import gsap from "gsap"
+// import gsap from "gsap"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { ScrollTrigger } from "gsap/all"
+// import { ScrollTrigger } from "gsap/all"
 import ServicesSliderMobile from "./ServicesSliderMobile"
-import useGsapPin from "@/app/components/hooks/useGsapPin"
+// import useGsapPin from "@/app/components/hooks/useGsapPin"
 
 const services = [
     {
@@ -155,17 +155,17 @@ export default function ServicesSection() {
 
     const sectionRef = useRef(null)
 
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
 
     return (
         <>
-            <section className="lg:block hidden relative z-40 md:rounded-t-[50px] overflow-y-hidden h-screen" ref={sectionRef}>
+            <section className="lg:block hidden relative z-40 md:rounded-t-[50px] overflow-y-hidden h-screen">
                 <section ref={sliderRef} className="relative md:flex hidden flex-col items-center justify-center bg-gradient-to-r from-[#01b2eb] to-primary  overflow-hidden">
                     {/* background image */}
                     <img
                         src={activeImg.src}
                         alt="Background"
-                        className="object-cover transition-opacity duration-500"
+                        className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-0"></div>
                     {/* slider container */}

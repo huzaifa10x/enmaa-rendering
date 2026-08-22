@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils";
 import image1 from "@/public/images/projects/1855-02.webp";
 import image2 from "@/public/images/p43ews.webp";
 import image3 from "@/public/images/projecs slideshow/431.webp";
-import { gsap } from "gsap";
+// import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import useGsapPin from "@/app/components/hooks/useGsapPin";
+// import useGsapPin from "@/app/components/hooks/useGsapPin";
 import PillTitle from "@/app/components/pill-title";
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 const designSolutions = [
     {
@@ -46,10 +46,10 @@ const designSolutions = [
 export default function DesignSolutions() {
     const [hoveredId, setHoveredId] = useState(1);
     const sectionRef = useRef(null);
-    useGsapPin(sectionRef)
+    // useGsapPin(sectionRef)
 
     return (
-        <section ref={sectionRef} dir="rtl" className="bg-neutral-200 relative px-0 lg:h-screen no-scrollbar md:rounded-t-[50px] text-white py-16 !z-[80]">
+        <section dir="rtl" className="bg-neutral-200 relative px-0 lg:h-screen no-scrollbar md:rounded-t-[50px] text-white py-16 !z-[80]">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-wrap md:justify-between items-start lg:gap-0 gap-4" dir="rtl">
                     <PillTitle title="حلول التصميم" />
@@ -102,7 +102,7 @@ export default function DesignSolutions() {
                                                 <img
                                                     src={solution.image.src || "/placeholder.svg"}
                                                     alt={solution.title}
-                                                    className="object-cover"
+                                                    className="absolute inset-0 h-full w-full object-cover"
                                                 />
                                             </div>
 

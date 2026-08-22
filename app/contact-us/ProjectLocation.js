@@ -4,12 +4,11 @@ import { useEffect, useRef, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MapPin } from "lucide-react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+// import gsap from "gsap"
+// import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Link from "next/link"
 
-gsap.registerPlugin(ScrollTrigger)
-
+// gsap.registerPlugin(ScrollTrigger)
 
 export default function ProjectLocation({ isArabic }) {
     {
