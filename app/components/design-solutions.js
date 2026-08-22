@@ -49,7 +49,7 @@ export default function DesignSolutions() {
     // useGsapPin(sectionRef)
 
     return (
-        <section ref={sectionRef} className="bg-neutral-200 relative px-0 lg:h-screen no-scrollbar md:rounded-t-[50px] text-white py-16 !z-[80]">
+        <section className="bg-neutral-200 relative px-0 lg:h-screen no-scrollbar md:rounded-t-[50px] text-white py-16 !z-[80]">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-wrap md:justify-between items-start lg:gap-0 gap-4">
                     <PillTitle title={'Design Solutions'} />
