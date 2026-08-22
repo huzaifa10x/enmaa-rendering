@@ -458,8 +458,7 @@ export default function ServicesSection({ lang = "en" }) {
                     <img
                         src={activeImg.src}
                         alt="Background"
-                      fill
-                        className="object-cover transition-opacity duration-500"
+                        className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-0"></div>
                     {/* slider container */}

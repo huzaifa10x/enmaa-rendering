@@ -47,7 +47,7 @@ function Row({ items = [], reverse = false, duration = "35s" }) {
                         className="h-72 w-[420px] py-0 overflow-hidden rounded-xl border-0 bg-card shadow-sm"
                         aria-hidden="true"
                     >
-                        <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+                        <img src={src.src} alt="" className="h-full w-full object-cover" loading="lazy" />
                     </Card>
                 ))}
             </div>

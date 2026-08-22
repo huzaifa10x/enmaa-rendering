@@ -321,12 +321,8 @@ export default function OurProjects() {
                             <div className="relative">
                                 <div className="relative w-full h-[300px]">
                                     <img
-                                        src={item.src}
+                                        src={item.src.src}
                                         alt={`Slide ${item.id}`}
-                                        // width={500}
-                                        // height={481}
-                                     fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="w-full h-full object-cover brightness-75 "
                                     />
                                 </div>

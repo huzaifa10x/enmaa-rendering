@@ -53,8 +53,7 @@ export default function ProjectModal({
                                     "/placeholder.svg"
                                 }
                                 alt={`${project.name} - Image ${currentImageIndex + 1}`}
-                               fill
-                                className="object-cover"
+                                className="absolute inset-0 h-full w-full"
                             />
                             <Expand
                                 className="lg:w-12 lg:h-12 w-9 h-9 absolute duration-200 lg:opacity-0 lg:invisible group-hover:visible group-hover:opacity-100 lg:top-1/2 lg:left-1/2 lg:-translate-1/2 right-3 bottom-3 rounded-xl text-white bg-black/50 hover:bg-white/40 backdrop-blur-sm transition-colors p-2 cursor-pointer"

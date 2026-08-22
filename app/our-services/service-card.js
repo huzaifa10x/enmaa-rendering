@@ -9,7 +9,6 @@ export default function ServiceCard({ service  , isArabic}) {
             <img
                 src={service.image.src || "/placeholder.svg"}
                 alt={service.title}
-             fill
                 className="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:opacity-100 duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t duration-300 opacity-0 group-hover:opacity-100" />

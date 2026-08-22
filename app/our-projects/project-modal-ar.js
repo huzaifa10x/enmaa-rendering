@@ -53,7 +53,6 @@ export default function ProjectModalAr({
                                     "/placeholder.svg"
                                 }
                                 alt={`${project.name_ar} - Image ${currentImageIndex + 1}`}
-                               fill
                                 className="object-cover"
                             />
                             <Expand

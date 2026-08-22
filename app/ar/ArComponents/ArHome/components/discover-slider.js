@@ -109,9 +109,7 @@ export default function DiscoverSlider() {
                         <img
                             src={slide.background.src}
                             alt={slide.title}
-                           fill
-                            priority={index === 0} // Perfect: keeps LCP fast
-                            sizes="100vw"
+                            priority={index === 0}
                             className="object-cover object-center"
                         />
                     </div>

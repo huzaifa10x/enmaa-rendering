@@ -191,7 +191,7 @@ export default function ProjectSlider() {
                                     ].join(" ")}
                                 >
                                     <img
-                                        src={p.image.src || "/placeholder.svg"}
+                                        src={p.image || "/placeholder.svg"}
                                         alt={p.title}
                                         width={300}
                                         height={300}

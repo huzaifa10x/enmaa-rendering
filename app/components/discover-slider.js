@@ -139,11 +139,8 @@ export default function DiscoverSlider() {
                         <img
                             src={slide.background.src}
                             alt={slide.title}
-                          fill
-                            priority={index === 0}
                             loading={index === 0 ? "eager" : "lazy"}
-                            sizes="100vw"
-                            className="object-cover object-center"
+                            className="absolute inset-0 h-full w-full object-cover object-center"
                         />
                     </div>
                 ))}
@@ -161,7 +158,7 @@ export default function DiscoverSlider() {
                         <img
                             src={slide.mobBg.src}
                             alt={slide.title}
-                           fill
+                            fill
                             priority={index === 0}
                             loading={index === 0 ? "eager" : "lazy"}
                             sizes="100vw"

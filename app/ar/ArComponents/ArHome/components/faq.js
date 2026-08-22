@@ -73,7 +73,6 @@ export default function FAQ({ faqData }) {
                             <img
                                 src={faqImg.src}
                                 alt="صورة الأسئلة الشائعة"
-                               fill
                                 className="object-cover transition-transform duration-500 hover:scale-105"
                                 priority
                             />

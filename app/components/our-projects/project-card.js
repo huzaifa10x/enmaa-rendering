@@ -9,8 +9,7 @@ export default function ProjectCard({ project, onClick, isArabic }) {
             <img
                 src={`https://yellow-termite-327315.hostingersite.com/storage/app/public/projects/${project.images[0]?.filename}`}
                 alt={project.name}
-               fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                className="absolute inset-0 h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
             />
 
             {/* Overlay */}
